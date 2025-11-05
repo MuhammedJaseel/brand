@@ -33,7 +33,7 @@ import { AdminsService } from './admins/admins.service';
 })
 export class AdminModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AmminMiddleware).forRoutes('admin');
+    consumer.apply(AmminMiddleware).forRoutes('api/admin');
   }
 }
 

@@ -22,7 +22,7 @@ const admins_controller_1 = require("./admins/admins.controller");
 const admins_service_1 = require("./admins/admins.service");
 let AdminModule = class AdminModule {
     configure(consumer) {
-        consumer.apply(AmminMiddleware).forRoutes('admin');
+        consumer.apply(AmminMiddleware).forRoutes('api/admin');
     }
 };
 exports.AdminModule = AdminModule;
