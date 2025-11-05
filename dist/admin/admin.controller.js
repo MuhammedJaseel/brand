@@ -17,18 +17,18 @@ let AdminController = class AdminController {
         this.adminService = adminService;
     }
     getHello() {
-        return this.adminService.getHello();
+        return this.adminService.getStat();
     }
 };
 exports.AdminController = AdminController;
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_1.Get)("statistics"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
+    __metadata("design:returntype", Object)
 ], AdminController.prototype, "getHello", null);
 exports.AdminController = AdminController = __decorate([
-    (0, common_1.Controller)(),
+    (0, common_1.Controller)("api/admin"),
     __metadata("design:paramtypes", [admin_service_1.AdminService])
 ], AdminController);
 //# sourceMappingURL=admin.controller.js.map

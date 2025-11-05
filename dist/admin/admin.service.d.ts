@@ -1,3 +1,3 @@
 export declare class AdminService {
-    getHello(): string;
+    getStat(): any;
 }
