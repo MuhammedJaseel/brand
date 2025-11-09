@@ -15,6 +15,22 @@ import { UsersService } from './users/users.service';
 import { SalesService } from './sales/sales.service';
 import { AdminsController } from './admins/admins.controller';
 import { AdminsService } from './admins/admins.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import {
+  Brand,
+  BrandSchema,
+  Category,
+  CategorySchema,
+  Product,
+  ProductSchema,
+} from 'src/schemas/products.schema';
+import { ProductsController } from './products/products.controller';
+import { CategoriesController } from './categories/categories.controller';
+import { BrandsController } from './brands/brands.controller';
+import { ProductsService } from './products/products.service';
+import { CategoriesService } from './categories/categories.service';
+import { BrandsService } from './brands/brands.service';
+import { User, UserSchema } from 'src/schemas/users.schema';
 
 @Module({
   controllers: [
@@ -22,13 +38,27 @@ import { AdminsService } from './admins/admins.service';
     AdminsController,
     SalesController,
     UsersController,
+    ProductsController,
+    CategoriesController,
+    BrandsController,
   ],
   providers: [
     AdminService,
     AdminsService,
     SalesService,
     UsersService,
+    ProductsService,
+    CategoriesService,
+    BrandsService,
     JwtService,
+  ],
+  imports: [
+    MongooseModule.forFeature([
+      { name: Product.name, schema: ProductSchema },
+      { name: Brand.name, schema: BrandSchema },
+      { name: Category.name, schema: CategorySchema },
+      { name: User.name, schema: UserSchema },
+    ]),
   ],
 })
 export class AdminModule {

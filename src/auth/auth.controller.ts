@@ -17,20 +17,15 @@ import {
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  // @Post('user/verify')
-  // async userVerify(@Body() body: UserLoginReqDto): Promise<UserLoginResDto> {
-  //   return this.authService.userVerify(body);
-  // }
+  @Post('user/verify')
+  async userVerify(@Body() body: VerifyAdminDto): Promise<VerifyAdminResDto> {
+    return this.authService.userVerify(body);
+  }
 
-  // @Post('user/login')
-  // async userLogin(@Body() body: UserRegReqDto): Promise<UserRegResDto> {
-  //   return this.authService.userLogin(body);
-  // }
-
-  // @Post('user/register')
-  // async userReg(@Body() body: UserOtpReqDto) {
-  //   return this.authService.userReg(body);
-  // }
+  @Post('user/login')
+  async userLogin(@Body() body: AdminLoginDto): Promise<AdminLoginResDto> {
+    return this.authService.userLogin(body);
+  }
 
   // ///////////////////////////////////////
 

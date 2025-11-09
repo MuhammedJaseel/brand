@@ -11,11 +11,14 @@ import {
   VerifyAdminDto,
   VerifyAdminResDto,
 } from './auth.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { User } from 'src/schemas/users.schema';
 
 @Injectable()
 export class AuthService {
   constructor(
-    // @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(User.name) private userModel: Model<User>,
     private jwtService: JwtService,
   ) {}
 
@@ -42,7 +45,12 @@ export class AuthService {
       const otp = this._generateOTP();
 
       const secret = this.ADMIN_SECRET + otp;
-      return { token: this.jwtService.sign({}, { secret, expiresIn: '5m' }) };
+      return {
+        token: this.jwtService.sign(
+          { email: body.email },
+          { secret, expiresIn: '5m' },
+        ),
+      };
     }
     throw new NotFoundException('Not a valid admin');
   }
@@ -52,6 +60,47 @@ export class AuthService {
     try {
       this.jwtService.verify(body.token, { secret });
       secret = this.ADMIN_SECRET;
+      return {
+        token: this.jwtService.sign({}, { secret, expiresIn: '1d' }),
+      };
+    } catch (error) {
+      throw new BadRequestException('Invalid or expired OTP');
+    }
+  }
+
+  // ////////////////////////////////////////////////////////////////////////
+  // ////////////////////////////////////////////////////////////////////////
+  // ////////////////////////////////////////////////////////////////////////
+  // ////////////////////////////////////////////////////////////////////////
+
+  async userVerify(body: VerifyAdminDto): Promise<VerifyAdminResDto> {
+    const otp = this._generateOTP();
+
+    const secret = this.USER_SECRET + otp;
+    return {
+      token: this.jwtService.sign(
+        { email: body.email },
+        { secret, expiresIn: '5m' },
+      ),
+    };
+  }
+
+  async userLogin(body: AdminLoginDto): Promise<AdminLoginResDto> {
+    var secret = this.USER_SECRET + body.otp;
+    try {
+      const decorder = this.jwtService.verify(body.token, { secret });
+
+      console.log(decorder);
+
+      let user = await this.userModel.findOne({ email: decorder.email });
+      if (!user) {
+        user = await this.userModel.create({
+          email: decorder.email,
+          name: 'Unnamed',
+        });
+      }
+
+      secret = this.USER_SECRET;
       return {
         token: this.jwtService.sign({}, { secret, expiresIn: '1d' }),
       };

@@ -20,6 +20,12 @@ let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
+    async userVerify(body) {
+        return this.authService.userVerify(body);
+    }
+    async userLogin(body) {
+        return this.authService.userLogin(body);
+    }
     async adminVerify(body) {
         return this.authService.adminVerify(body);
     }
@@ -28,6 +34,20 @@ let AuthController = class AuthController {
     }
 };
 exports.AuthController = AuthController;
+__decorate([
+    (0, common_1.Post)('user/verify'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [auth_dto_1.VerifyAdminDto]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "userVerify", null);
+__decorate([
+    (0, common_1.Post)('user/login'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [auth_dto_1.AdminLoginDto]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "userLogin", null);
 __decorate([
     (0, common_1.Post)('admin/verify'),
     __param(0, (0, common_1.Body)()),

@@ -1,8 +1,10 @@
 import { Types } from 'mongoose';
 export declare class Brand {
     name: string;
+    code: string;
     desc: string;
-    image: string;
+    img: string;
+    deleted: string;
 }
 export declare const BrandSchema: import("mongoose").Schema<Brand, import("mongoose").Model<Brand, any, any, any, import("mongoose").Document<unknown, any, Brand, any, {}> & Brand & {
     _id: Types.ObjectId;
@@ -15,8 +17,10 @@ export declare const BrandSchema: import("mongoose").Schema<Brand, import("mongo
 }>;
 export declare class Category {
     name: string;
+    code: string;
     desc: string;
-    image: string;
+    img: string;
+    deleted: string;
 }
 export declare const CategorySchema: import("mongoose").Schema<Category, import("mongoose").Model<Category, any, any, any, import("mongoose").Document<unknown, any, Category, any, {}> & Category & {
     _id: Types.ObjectId;
@@ -28,14 +32,18 @@ export declare const CategorySchema: import("mongoose").Schema<Category, import(
     __v: number;
 }>;
 export declare class Product {
-    brandId: Types.ObjectId;
-    categoryId: Types.ObjectId;
+    brand: Types.ObjectId;
+    category: Types.ObjectId;
     name: string;
+    code: string;
     desc: string;
-    image: string;
-    stock: string;
+    img: string;
+    stock: number;
+    price: number;
+    sPrice: number;
+    deleted: string;
 }
-export declare const UserSchema: import("mongoose").Schema<Product, import("mongoose").Model<Product, any, any, any, import("mongoose").Document<unknown, any, Product, any, {}> & Product & {
+export declare const ProductSchema: import("mongoose").Schema<Product, import("mongoose").Model<Product, any, any, any, import("mongoose").Document<unknown, any, Product, any, {}> & Product & {
     _id: Types.ObjectId;
 } & {
     __v: number;

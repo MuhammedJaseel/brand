@@ -20,6 +20,15 @@ const users_service_1 = require("./users/users.service");
 const sales_service_1 = require("./sales/sales.service");
 const admins_controller_1 = require("./admins/admins.controller");
 const admins_service_1 = require("./admins/admins.service");
+const mongoose_1 = require("@nestjs/mongoose");
+const products_schema_1 = require("../schemas/products.schema");
+const products_controller_1 = require("./products/products.controller");
+const categories_controller_1 = require("./categories/categories.controller");
+const brands_controller_1 = require("./brands/brands.controller");
+const products_service_1 = require("./products/products.service");
+const categories_service_1 = require("./categories/categories.service");
+const brands_service_1 = require("./brands/brands.service");
+const users_schema_1 = require("../schemas/users.schema");
 let AdminModule = class AdminModule {
     configure(consumer) {
         consumer.apply(AmminMiddleware).forRoutes('api/admin');
@@ -33,13 +42,27 @@ exports.AdminModule = AdminModule = __decorate([
             admins_controller_1.AdminsController,
             sales_controller_1.SalesController,
             users_controller_1.UsersController,
+            products_controller_1.ProductsController,
+            categories_controller_1.CategoriesController,
+            brands_controller_1.BrandsController,
         ],
         providers: [
             admin_service_1.AdminService,
             admins_service_1.AdminsService,
             sales_service_1.SalesService,
             users_service_1.UsersService,
+            products_service_1.ProductsService,
+            categories_service_1.CategoriesService,
+            brands_service_1.BrandsService,
             jwt_1.JwtService,
+        ],
+        imports: [
+            mongoose_1.MongooseModule.forFeature([
+                { name: products_schema_1.Product.name, schema: products_schema_1.ProductSchema },
+                { name: products_schema_1.Brand.name, schema: products_schema_1.BrandSchema },
+                { name: products_schema_1.Category.name, schema: products_schema_1.CategorySchema },
+                { name: users_schema_1.User.name, schema: users_schema_1.UserSchema },
+            ]),
         ],
     })
 ], AdminModule);
